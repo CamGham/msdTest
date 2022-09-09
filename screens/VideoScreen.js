@@ -11,12 +11,10 @@ const VideoScreen = ({setShowLiveCamera, setShowGallery}) =>{
     const navigation = useNavigation();
 
     const handleShowCamera = () =>{
-        console.log("camera pressed");
         setShowLiveCamera(true);
     }
 
     const handleShowGallery = () =>{
-        console.log("Gallery pressed");
         setShowGallery(true);
     }
 

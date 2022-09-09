@@ -1,15 +1,33 @@
 import { useNavigation } from "@react-navigation/native"
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
-import React, {useState} from  "react";
+import React, {useState, useEffect} from  "react";
+import { auth } from "../firebase/firebase";
 
 const LoginScreen = () =>{
     const navigation = useNavigation();
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
-const handleLogin = () => {
-    navigation.navigate("Dashboard");
-}
+useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Dashboard");
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        navigation.navigate("Dashboard");
+        setEmail("");
+        setPassword("");
+      })
+      .catch((error) => alert("User does not exist"));
+  };
 
     return(
         <KeyboardAvoidingView style={styles.container}>

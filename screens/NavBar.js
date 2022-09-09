@@ -38,7 +38,7 @@ return(
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 70,
+                marginTop: 60,
                 height: "170%",
               }}
             />
@@ -52,16 +52,12 @@ return(
           position: "absolute",
           borderRadius: 15,
           borderColor:"#0094FF",
-          borderWidth: 3,
+          borderWidth: 2,
           backgroundColor: "white",
 
           //fix top
-          borderTopWidth:3,
+          borderTopWidth:2,
           borderTopColor: "#0094FF",
-
-          //fix bottom corners
-          borderBottomLeftRadius:16,
-          borderBottomRightRadius:16,
           
           height: 65,
           marginTop:20,
