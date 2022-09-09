@@ -5,8 +5,10 @@ import {
   Text,
   StyleSheet,
   StatusBar,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
 
 const LandingScreen = () => {
   const navigation = useNavigation();
@@ -28,7 +30,7 @@ const LandingScreen = () => {
       animated={true}
       />
         <View style={styles.imageContainer}>
-            <Text>Image here</Text>
+            <Image style={styles.image} source={require("../assets/shooterlogo.png")}/>
         </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
@@ -83,6 +85,13 @@ const styles = StyleSheet.create({
     flex:1,
     // backgroundColor: "red",
     paddingVertical: 50,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    // marginBottom: 50,
+    marginTop: 20,
+    // marginTop: 70
   },
   buttonContainer: {
     flex:2,
