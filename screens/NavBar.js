@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./HomeScreen";
 import Ionicons from "react-native-vector-icons/Ionicons"
-import VideoScreen from "./VideoScreen";
+import VideoNav from "./VideoNav";
 import ResultsScreen from "./ResultsScreen";
+import React, {useState, useEffect} from "react";
 
 const Tab = createBottomTabNavigator();
 const homeScreen = "Home";
@@ -10,7 +11,8 @@ const videoScreen = "Video";
 const resultsScreen = "Results";
 
 const NavBar = () => {
-    // const navigation = useNavigation();
+  const [showLiveCamera, setShowLiveCamera] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
 
 return(
     <Tab.Navigator
@@ -74,7 +76,11 @@ return(
 
         </Tab.Screen>
         <Tab.Screen name={videoScreen}>
-            {() => (<VideoScreen/>)}
+            {() => (<VideoNav 
+            showLiveCamera={showLiveCamera}
+            setShowLiveCamera={setShowLiveCamera}
+            showGallery={showGallery}
+            setShowGallery={setShowGallery}/>)}
         </Tab.Screen>
         
     </Tab.Navigator>
