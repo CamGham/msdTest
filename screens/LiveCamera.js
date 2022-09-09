@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView, StatusBar} from "react-native";
 
 const LiveCamera = ({setShowLiveCamera}) => {
 const handleBack = () =>{
@@ -7,7 +7,10 @@ const handleBack = () =>{
 
 return(
 <KeyboardAvoidingView style={styles.container}>
-            
+<StatusBar
+      backgroundColor={"#0094FF"}
+      animated={true}
+      />
             <Text>Camera</Text>
             <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleBack}>

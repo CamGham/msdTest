@@ -4,6 +4,7 @@ import {
     TouchableOpacity,
     Text,
     StyleSheet,
+    StatusBar,
   } from "react-native";
   import { useNavigation } from "@react-navigation/native";
 
@@ -20,7 +21,10 @@ const VideoScreen = ({setShowLiveCamera, setShowGallery}) =>{
 
     return(
         <KeyboardAvoidingView style={styles.container}>
-            
+            <StatusBar
+      backgroundColor={"#0094FF"}
+      animated={true}
+      />
             <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={handleShowCamera}>
           <Text style={styles.buttonText}>Record</Text>

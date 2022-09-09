@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,6 +23,10 @@ const LandingScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.view}>
+      <StatusBar
+      backgroundColor={"#0094FF"}
+      animated={true}
+      />
         <View style={styles.imageContainer}>
             <Text>Image here</Text>
         </View>

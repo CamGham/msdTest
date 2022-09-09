@@ -1,12 +1,14 @@
 import { useNavigation } from "@react-navigation/native"
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, StatusBar } from "react-native";
 import React, {useState, useEffect} from  "react";
 import { auth } from "../firebase/firebase";
+import { showMessage } from "react-native-flash-message";
 
 const LoginScreen = () =>{
     const navigation = useNavigation();
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+const [statusBarColour, setStatusBarColour] = useState("#0094FF");
 
 useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -26,11 +28,28 @@ useEffect(() => {
         setEmail("");
         setPassword("");
       })
-      .catch((error) => alert("User does not exist"));
+      .catch((error) => {setStatusBarColour("#d8534f");
+      showMessage({
+        message: "User does not exist!",
+        type: "danger",
+        // animationDuration:280,
+        // floating:true,
+      });
+      timeout();});
   };
+
+  const timeout= () =>{
+    setTimeout(() => {
+      setStatusBarColour("#0094FF");
+    }, 2000);
+  }
 
     return(
         <KeyboardAvoidingView style={styles.container}>
+          <StatusBar
+      backgroundColor={statusBarColour}
+      animated={true}
+      />
             <View style={styles.textContainer}>
             <TextInput
     placeholder="Email"
