@@ -54,8 +54,10 @@ const RegisterScreen = () => {
       .then((querySnapShot) => {
         if (querySnapShot.size != 0) {
           exists = true;
+          console.log("This user does exist");
         }
-      });
+      })
+      .catch((error) => console.log(error));
 
     return exists;
   };
@@ -63,12 +65,8 @@ const RegisterScreen = () => {
   const timeout= () =>{
     setTimeout(() => {
       setStatusBarColour("#0094FF");
-    }, 2000);
+    }, 2050);
   }
-
-  // const changeStatusBarColour = () =>{
-    
-  // }
 
   const handleRegister = () => {
     if (name.length < 2) {
@@ -76,8 +74,6 @@ const RegisterScreen = () => {
       showMessage({
         message: "Name must be at least 2 characters!",
         type: "danger",
-        // animationDuration:280,
-        // floating:true,
       });
       timeout();
     } else if (name.length > 12) {
@@ -85,7 +81,6 @@ const RegisterScreen = () => {
       showMessage({
         message: "Name must be 12 characters or less!",
         type: "danger",
-        // hideStatusBar: true,
       });
       timeout();
     } else if (email.length == 0) {
@@ -93,7 +88,6 @@ const RegisterScreen = () => {
       showMessage({
         message: "Please enter an email!",
         type: "danger",
-        // hideStatusBar: true,
       });
       timeout();
     } else if (!email.match(/\w+@[A-Za-z_]+\.[A-Za-z]{2,6}/)) {
@@ -101,7 +95,6 @@ const RegisterScreen = () => {
       showMessage({
         message: "Please enter an email of the format: example@gmail.com",
         type: "danger",
-        // hideStatusBar: true,
       });
       timeout();
     } else if (password.length < 6) {
@@ -109,7 +102,6 @@ const RegisterScreen = () => {
       showMessage({
         message: "Password must be at least 6 characters!",
         type: "danger",
-        // hideStatusBar: true,
       });
       timeout();
     } else if (password != confPassword) {
@@ -117,32 +109,30 @@ const RegisterScreen = () => {
       showMessage({
         message: "Passwords do not match! Please try again!",
         type: "danger",
-        // hideStatusBar: true,
       });
       timeout();
     } else {
       if (getUsers() == false) {
-        console.log("Does not exists");
         auth
           .createUserWithEmailAndPassword(email, password)
           .then((userCredentials) => {
             const user = userCredentials.user;
+            setStatusBarColour("#5cb85c");
             showMessage({
               message: "Account Created",
               type: "success",
-              // hideStatusBar: true,
             });
+            timeout();
           })
           .catch((error) => {
             setStatusBarColour("#d8534f");
             showMessage({
               message: "Email already exists!",
               type: "danger",
-              // hideStatusBar: true,
             });
             timeout();
           });
-        // addUser();
+        addUser();
       }
     }
   };

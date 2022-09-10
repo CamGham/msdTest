@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const LandingScreen = () => {
   const navigation = useNavigation();
+  
 
     const handleRegister = () => {
       navigation.navigate("Register");
