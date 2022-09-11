@@ -1,10 +1,26 @@
 import {View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView, StatusBar} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import React, {useState, useEffect} from "react";
 
 const CameraGallery = ({setShowGallery}) => {
 
 const handleBack = () =>{
     setShowGallery(false);
 };
+
+const [video, setVideo] = useState(null);
+
+const pickVideo = async () => {
+    let result = ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        allowsEditing:true,
+    })
+    
+    if(!(await result).cancelled)
+    {
+        setVideo(result.uri);
+    }
+}
 
 return(
 <KeyboardAvoidingView style={styles.container}>
@@ -16,6 +32,9 @@ return(
             <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleBack}>
           <Text style={styles.buttonText}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={pickVideo}>
+          <Text style={styles.buttonText}>Upload Video</Text>
         </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
