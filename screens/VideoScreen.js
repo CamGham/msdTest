@@ -7,6 +7,12 @@ import {
     StatusBar,
   } from "react-native";
   import { useNavigation } from "@react-navigation/native";
+  import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80
+  };
 
 const VideoScreen = ({setShowLiveCamera, setShowGallery}) =>{
     const navigation = useNavigation();
@@ -19,7 +25,25 @@ const VideoScreen = ({setShowLiveCamera, setShowGallery}) =>{
         setShowGallery(true);
     }
 
+    const onSwipe = (gestureName) =>{
+        const {SWIPE_RIGHT} = swipeDirections;
+        // setGestureName(gestureName);
+        switch (gestureName) {
+          case SWIPE_RIGHT:
+            navigation.navigate("Home");
+            break;
+          
+        }
+      }
+
     return(
+        <GestureRecognizer
+          onSwipe={(direction) => onSwipe(direction)}
+        config={config}
+        style={{
+          flex: 1,
+        }}
+        >
         <KeyboardAvoidingView style={styles.container}>
             <StatusBar
       backgroundColor={"#0094FF"}
@@ -34,6 +58,7 @@ const VideoScreen = ({setShowLiveCamera, setShowGallery}) =>{
         </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
+        </GestureRecognizer>
     )
 }
 

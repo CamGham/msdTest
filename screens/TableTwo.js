@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderColor:"black",
   },
-  head: { height: 44, backgroundColor: "darkblue" },
-  headText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "white",
-  },
-  text: { margin: 6, fontSize: 16, fontWeight: "bold", textAlign: "center" },
-  data: { backgroundColor: "red" },
+  // head: { height: 44, backgroundColor: "darkblue" },
+  // headText: {
+  //   fontSize: 20,
+  //   fontWeight: "bold",
+  //   textAlign: "center",
+  //   color: "white",
+  // },
+  // text: { margin: 6, fontSize: 16, fontWeight: "bold", textAlign: "center" },
+  // data: { backgroundColor: "red" },
 });

@@ -2,12 +2,38 @@ import { KeyboardAvoidingView, StatusBar, View, Text, StyleSheet } from "react-n
 import React, {useState, useEffect} from "react";
 import {firestore} from "../firebase/firestore";
 import {auth} from "../firebase/firebase";
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { useNavigation } from "@react-navigation/native";
+
+
+
+const config = {
+  velocityThreshold: 0.3,
+  directionalOffsetThreshold: 80
+};
+
 
 const HomeScreen = () =>{
   const [statusBarColour, setStatusBarColour] = useState("#5cb85c");
   const [name, setName] = useState("");
+  const navigation = useNavigation();
 
   useEffect(() => {timeout(), getUserInfo()}, [])
+
+  
+
+  const onSwipe = (gestureName) =>{
+    const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+    // setGestureName(gestureName);
+    switch (gestureName) {
+      case SWIPE_LEFT:
+        navigation.navigate("Video");
+        break;
+      case SWIPE_RIGHT:
+        navigation.navigate("Results");
+        break;
+    }
+  }
 
   const getUserInfo = () => {
     firestore
@@ -27,6 +53,13 @@ const HomeScreen = () =>{
     }, 2250);
   };
 return(
+  <GestureRecognizer
+          onSwipe={(direction) => onSwipe(direction)}
+        config={config}
+        style={{
+          flex: 1,
+        }}
+        >
     <KeyboardAvoidingView style={styles.container}>
         <StatusBar
       backgroundColor={statusBarColour}
@@ -37,6 +70,7 @@ return(
         <Text>Here are the results of your last three shots:</Text>
       </View>
     </KeyboardAvoidingView>
+    </GestureRecognizer>
 )
 
 }
