@@ -4,6 +4,7 @@ import {firestore} from "../firebase/firestore";
 import {auth} from "../firebase/firebase";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { useNavigation } from "@react-navigation/native";
+import FadeView from "./FadeView";
 
 
 
@@ -65,10 +66,10 @@ return(
       backgroundColor={statusBarColour}
       animated={true}
       />
-      <View style={styles.greetingContainer}>
+      <FadeView style={styles.greetingContainer}>
         <Text>Welcome {name}!</Text>
         <Text>Here are the results of your last three shots:</Text>
-      </View>
+      </FadeView>
     </KeyboardAvoidingView>
     </GestureRecognizer>
 )
