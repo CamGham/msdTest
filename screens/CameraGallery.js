@@ -51,7 +51,7 @@ const CameraGallery = ({ setShowGallery }) => {
       const source = { uri: manipResult.uri};
       setImage(source);
       setPredictions(null);
-      console.log(image);
+      console.log(image.uri);
     }
 }catch(error)
 {
