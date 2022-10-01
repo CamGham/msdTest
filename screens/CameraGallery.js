@@ -11,6 +11,7 @@ import * as ImagePicker from "expo-image-picker";
 // import * as ImageManipulator from "expo-image-manipulator";
 import * as ImageManipulator from "expo-image-manipulator";
 import React, { useState, useEffect } from "react";
+import { FFmpegKit } from "ffmpeg-kit-react-native";
 
 const CameraGallery = ({ setShowGallery }) => {
   const handleBack = () => {
@@ -26,37 +27,55 @@ const CameraGallery = ({ setShowGallery }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
     });
-
+    console.log(result);
     if (!(await result).cancelled) {
-      setVideo(result.uri);
+      const source = {uri: result._3.uri};
+      setVideo(source);
     }
+
+    console.log(video);
+    // await splitVideo();
   };
 
-  const pickImage = async () => {
-    try{
-    let result = ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
+// const splitVideo = async () =>{
+//   // ffmpeg -i input.mp4 -vf fps=1 out%d.png
+//   // ffmpeg -i input.flv -ss 00:00:14.435 -frames:v 1 out.png
 
-    if (!(await result).cancelled) {
-      // console.log(result);
-      const manipResult = await ImageManipulator.manipulateAsync(
-        result._3.uri,
-        [{ resize: { width: 900 } }],
-        { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
-      );
+// //   FFmpegKit.execute(`-i ${video}.mp4 -vf fps=1 ${}%d.png`).then(async (session) => {
+// //     const returnCode = await session.getReturnCode();
+// // }
 
-      const source = { uri: manipResult.uri};
-      setImage(source);
-      setPredictions(null);
-      console.log(image.uri);
-    }
-}catch(error)
-{
-    console.error(error);
-}  };
+// FFmpegKit.execute(`-i ${video}.mp4 -ss 00:00:00.000 -frames:v 1 ${image}.png`).then(async (session) => {
+//       const returnCode = await session.getReturnCode();
+//   });
+//   console.log(image);
+// };
+
+//   const pickImage = async () => {
+//     try{
+//     let result = ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//       allowsEditing: true,
+//       quality: 1,
+//     });
+
+//     if (!(await result).cancelled) {
+//       // console.log(result);
+//       const manipResult = await ImageManipulator.manipulateAsync(
+//         result._3.uri,
+//         [{ resize: { width: 900 } }],
+//         { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
+//       );
+
+//       const source = { uri: manipResult.uri};
+//       setImage(source);
+//       setPredictions(null);
+//       console.log(image.uri);
+//     }
+// }catch(error)
+// {
+//     console.error(error);
+// }  };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -66,12 +85,12 @@ const CameraGallery = ({ setShowGallery }) => {
         <TouchableOpacity style={styles.button} onPress={handleBack}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={pickImage}>
+        <TouchableOpacity style={styles.button} onPress={pickVideo}>
           <Text style={styles.buttonText}>Upload Video</Text>
         </TouchableOpacity>
-        {image && 
+        {video && 
         <View>
-        <Image source={{uri: image.uri }} style={{ flex: 1, width: 600 }} />
+        <Image source={{uri: video.uri }} style={{ flex: 1, width: 600 }} />
         </View>}
       </View>
     </KeyboardAvoidingView>
